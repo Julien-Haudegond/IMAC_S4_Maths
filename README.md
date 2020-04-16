@@ -4,4 +4,4 @@ Jeu de plateau en JavaScript, basé principalement sur l'utilisation de lois de 
 
 Réalisé par Cyrielle LASSARRE et Julien HAUDEGOND.
 
-Template initial : [Vanilla JS Wheel of Fortune](#https://github.com/weibenfalk/vanilla-js-wheel-of-fortune)
+Template initial : [Vanilla JS Wheel of Fortune](https://github.com/weibenfalk/vanilla-js-wheel-of-fortune)
