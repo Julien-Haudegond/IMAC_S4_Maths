@@ -4,16 +4,50 @@
     <title>S4 - Maths</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/probas.js"></script>
   </head>
 
   <body>
     <div id="app">
       <img class="marker" src="img/marker.png" />
-      <img class="wheel" src="img/wheel.png" />
-      <img class="button" src="img/button.png" />
+      <div id="wheelSVG" style="width: 400px; height:400px">
+        <svg id="Wheel" 
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 628.24 628.24">
+          <defs>
+              <style>.wheelPart-even{fill:red;}.wheelPart-even,.wheelPart-odd{stroke:#000;stroke-miterlimit:10;}.wheelPart-odd{fill:#ff0;}.wheelNumbers{font-size:100px;font-family:ArialMT, Arial;}</style>
+          </defs>
+          <title>roue</title>
+          <path class="wheelPart-even" d="M500,186.38V500L278.24,278.24A312.63,312.63,0,0,1,500,186.38Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-odd" d="M721.76,278.24,500,500V186.38A312.63,312.63,0,0,1,721.76,278.24Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-even" d="M813.62,500H500L721.76,278.24A312.63,312.63,0,0,1,813.62,500Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-odd" d="M813.62,500a312.63,312.63,0,0,1-91.86,221.76L500,500Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-even" d="M721.76,721.76A312.63,312.63,0,0,1,500,813.62V500Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-odd" d="M500,500V813.62a312.63,312.63,0,0,1-221.76-91.86Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-even" d="M500,500,278.24,721.76A312.63,312.63,0,0,1,186.38,500Z" transform="translate(-185.88 -185.88)"/>
+          <path class="wheelPart-odd" d="M500,500H186.38a312.63,312.63,0,0,1,91.86-221.76Z" transform="translate(-185.88 -185.88)"/>
+          <text id="wheelNumber0" class="wheelNumbers" transform="translate(228.42 179.89) rotate(-22.5)">0</text>
+          <text id="wheelNumber1" class="wheelNumbers" transform="translate(158.6 279.8) rotate(-67.5)">1</text>
+          <text id="wheelNumber2" class="wheelNumbers" transform="translate(179.89 399.82) rotate(-112.5)">2</text>
+          <text id="wheelNumber3" class="wheelNumbers" transform="translate(279.8 469.64) rotate(-157.5)">3</text>
+          <text id="wheelNumber4" class="wheelNumbers" transform="translate(399.82 448.35) rotate(157.5)">4</text>
+          <text id="wheelNumber5" class="wheelNumbers" transform="translate(469.64 348.44) rotate(112.5)">5</text>
+          <text id="wheelNumber6" class="wheelNumbers" transform="translate(448.35 228.42) rotate(67.5)">6</text>
+          <text id="wheelNumber7" class="wheelNumbers" transform="translate(348.44 158.61) rotate(22.5)">7</text>
+        </svg>
+      </div>
+      <div id='sliderFlex'>
+        <p>ROUGE</p>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="100" value="50" class="slider" id="wheelProbSlider">
+        </div>
+        <p>JAUNE</p>
+      </div>
+    </div>
+      <img id="button" src="img/button.png" />
       <input type="checkbox" id="info" name="info" checked>
         <label for="info">Messages d'informations</label>
-    </div>
+
 
     <script src="scripts/index.js"></script>
   </body>
