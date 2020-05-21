@@ -31,6 +31,25 @@
 .slidecontainer {
     width: 100%; /* Width of the outside container */
   }
+
+#shark, #submarine{
+  width: 50px;
+}
+
+table#parcours {
+  margin:auto;
+  border-spacing: 5px;
+}
+
+table#parcours tr td{
+  border-bottom:5px solid #6495ed;
+  border-collapse:collapse;
+  padding-bottom: 2px;
+  width: 100px;
+  height: 100px;
+  background:white;
+  text-align: center;
+}
   
   /* The slider itself */
   .slider {
