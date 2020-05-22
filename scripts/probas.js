@@ -38,6 +38,6 @@ const getOneEventFromProbs = (probs) => {
 
     print(`Fonction getOneEventFromProbs() :
         nombre aléatoire entre 0 et 1 choisi selon une loi uniforme : ${rand.toFixed(3)}
-        n° de l'événement correspondant à ce tirage : case n°${eventIndex}`)
+        n° de l'événement correspondant à ce tirage : ${eventIndex}`)
     return eventIndex
 }

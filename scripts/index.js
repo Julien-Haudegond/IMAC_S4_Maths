@@ -163,6 +163,10 @@ const startButton = document.getElementById('button')
 const checkbox = document.getElementById('info')
 const wheelNumbers = Array.from(document.getElementsByClassName("wheelNumbers"))
 const slider = document.getElementById('wheelProbSlider')
+const generatorButton = document.getElementById('generatorButton')
+
+startButton.disabled = true
+submarine.style.filter = `hue-rotate(${getIntegerFrom0To360()}deg)`
 
 // Définition des variables utiles
 let wheelDegree = 0
@@ -175,11 +179,6 @@ const probas5 = [1/14, 1/14, 1/14, 1/14, 1/14, 7/14, 1/14, 1/14]
 const pourcent = [4/100, 4/100, 4/100, 4/100, 5/100, 5/100, 4/100, 70/100]
 let probFromSlider = getProbFromSlider(slider)
 
-
-// Assigne à la roue des entiers : 0, 1 ou 2
-wheelNumbers.map(item => {
-    item.innerHTML = getAnIntegerFrom0To2()
-})
 
 
 /***** ECOUTEURS D'EVENEMENTS *****/
@@ -203,4 +202,36 @@ checkbox.addEventListener('click', () => {
 
 slider.addEventListener('input', () => {
     probFromSlider = getProbFromSlider(slider)
+})
+
+generatorButton.addEventListener('click', () => {
+    // Assigne à la roue des entiers : 0, 1 ou 2
+    const wheelChoice = document.querySelector("input[name=wheel-choices]:checked").value
+    const choice20 = [0.75, 0, 0.25]
+    const choice10 = [0.35, 0.65, 0]
+    const choice210 = [0.34, 0.33, 0.33]
+
+    switch(wheelChoice) {
+        case '20':
+            wheelNumbers.map(item => {
+                item.innerHTML = getOneEventFromProbs(choice20) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+            })
+            break
+        case '10':
+            wheelNumbers.map(item => {
+                item.innerHTML = getOneEventFromProbs(choice10) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+            })
+            break
+        case '210':
+            wheelNumbers.map(item => {
+                item.innerHTML = getOneEventFromProbs(choice210) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+            })
+            break
+        default:
+            wheelNumbers.map(item => {
+                item.innerHTML = getOneEventFromProbs(choice210) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+            })
+    }
+    startButton.disabled = false
+    generatorButton.disabled = true
 })
