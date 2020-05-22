@@ -37,14 +37,16 @@
         </svg>
       </div>
       <div id='sliderFlex'>
-        <p>ROUGE</p>
-        <div class="slidecontainer">
-          <input type="range" min="0" max="100" value="50" class="slider" id="wheelProbSlider">
+          <span>ROUGE</span>
+          <div class="slidecontainer">
+            <input type="range" min="0" max="100" value="50" class="slider" id="wheelProbSlider">
+          </div>
+          <span>JAUNE</span>
         </div>
-        <p>JAUNE</p>
       </div>
-    </div>
-      <img id="button" src="img/button.png" />
+
+      <input type="button" id="button" value="Spin the wheel">
+   
       <input type="checkbox" id="info" name="info" checked>
       <label for="info">Messages d'informations</label>
     <table id="parcours">
@@ -68,6 +70,24 @@
         </tr>
       </tbody>
     </table>
+
+    <br>
+
+    <!--- évaluer la fatigue du requin par rapport à la normale, soit 0 (50%), soit 2 (50%)-->
+    <h2>État du requin</h2>
+    <table id="score-shark">
+      <thead>
+        <tr>
+          <th></th>
+          <th>0</th>
+          <th>2</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <p id="sentence-shark"></p>
+
     <script src="scripts/index.js"></script>
   </body>
 </html>

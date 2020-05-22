@@ -23,9 +23,57 @@ const computeAngle = (probs, wheelNumbers) => {
     return angle
 }
 
+/***** CALCULER LA FATIGUE DU REQUIN *****/
+
+/***** Créer ligne tableau de score *****/
+function createTableLine(turn, go_shark){
+    tr = document.createElement('tr')
+    if(go_shark == 0){
+        tr.innerHTML = '<td>Tour '+turn+'</td><td>x</td><td></td>'
+    }else{
+        tr.innerHTML = '<td>Tour '+turn+'</td><td></td><td>x</td>'
+    }  
+    document.querySelector('table#score-shark tbody').appendChild(tr)
+}
+
+/***** Calculer le score final *****/
+function finalScore(){
+
+    //bloquer le button pour empêcher que le joueur joue après la fin du jeu
+    document.querySelector('#button').setAttribute('disabled', 'disabled')
+
+     //calculer données du tableau
+    trFinal = document.createElement('tr')
+    trFinal.innerHTML = '<td>Final</td><td id="score-zero"></td><td id="score-two"></td>'
+
+    document.querySelector('table#score-shark tbody').appendChild(trFinal)
+    
+    zero = document.querySelector('#score-zero')
+    two = document.querySelector('#score-two')
+
+    percent_zero = Math.round(nb_zero*100/turn)
+    percent_two = 100-percent_zero
+
+    zero.innerHTML = percent_zero+'%'
+    two.innerHTML = percent_two+'%'
+
+    //affichage de la phrase de conclusion des résultats
+    sentence = document.querySelector('p#sentence-shark')
+
+    if(percent_two == 50){
+        sentence.innerHTML = 'Le requin a une vitesse pile dans la moyenne : ni plus, ni moins.'
+    }
+    else if(percent_two > 50){
+        sentence.innerHTML = 'Le requin est une véritable fusée Ariane !'
+    }else{
+        sentence.innerHTML = 'Une cure de vitamines se fait ressentir chez notre requin.'
+    }
+}
+
 /***** FAIRE AVANCER LE SOUS-MARIN ET LE REQUIN *****/
 
-var turn = 0
+turn = 0
+nb_zero = 0
 
 elementShark = '<img id="shark" src="img/requin.jpg">'
 elementSubmarine = '<img id="submarine" src="img/sousmarin.jpg">'
@@ -42,20 +90,33 @@ function Deplacement(advance) {
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
-      }
+    }
 
-    const go_shark = getRandomInt(3);
-    const go_submarine = parseInt(advance);
+    //TODO valeur du requinou
+    go_shark = getRandomInt(2)
+    
+    if(go_shark == 0){
+        go_shark = 0
+    }else if(go_shark == 1){
+        go_shark = 2
+    }
+    //END TODO
+
+    if(go_shark == 0){
+        nb_zero++
+    }
+
+    go_submarine = parseInt(advance)
 
     sum_shark = parseInt(sharkId)+go_shark
     sum_submarine = parseInt(submarineId)+go_submarine
 
-    console.log(sum_shark)
-    console.log(sum_submarine)
-
     if (turn<=5){
+        turn++
         if(sum_shark==sum_submarine){
             alert("Game over")
+            createTableLine(turn,go_shark)
+            finalScore()
         }
         else if(sum_submarine>sum_shark){
             //pour vider la case dans laquelle les images se trouvaient
@@ -75,14 +136,18 @@ function Deplacement(advance) {
             if(go_submarine != 0){
                 document.querySelector('#parcours td[data-id="'+sum_submarine+'"]').innerHTML = elementSubmarine
             }
-            turn++
+            createTableLine(turn,go_shark)
+
+            if(turn == 5){
+                alert("End of the game, see you soon ")
+                finalScore()
+            }
         }
         else{
             alert("Le requin va trop vite !")
+            createTableLine(turn,go_shark)
+            finalScore()
         }
-    }
-    else{
-        alert("End of the game, see you soon")
     }
 }
 
@@ -139,4 +204,3 @@ checkbox.addEventListener('click', () => {
 slider.addEventListener('input', () => {
     probFromSlider = getProbFromSlider(slider)
 })
-
