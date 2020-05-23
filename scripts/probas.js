@@ -1,3 +1,13 @@
+// Loi uniforme continue
+const continuousUniformDistribution = (a,b) => {
+    return a + (b-a)*Math.random()
+}
+
+// Loi uniforme discrète
+const discreteUniformDistribution = (a,b) => {
+    return Math.floor(continuousUniformDistribution(a,b))
+}
+
 const getProbFromSlider = (slider) => {
     const value = slider.value
 
@@ -24,20 +34,20 @@ const computeProbs = (probs) => {
     return sumProbs
 }
 
-// Fonction qui permet de tirer au sort un événement
-const getOneEventFromProbs = (probs) => {
+// Loi discrète qui dépend du tableau de probabilités passé en argument
+const discreteDistribution = (probs) => {
     // Génération du tableau computeProbs
     const computedProbs = computeProbs(probs)
 
-    // Sélection d'un nombre aléatoire compris entre 0 et 1 de manière uniforme
-    const rand = Math.random()
+    // Sélection d'un nombre aléatoire compris entre 0 et 1 de manière uniforme (loi uniforme continue)
+    const rand = continuousUniformDistribution(0,1)
     let eventIndex = 0
 
     // Parcours du tableau computeProbs pour trouver l'événement correspondant
     while(eventIndex < computedProbs.length && rand > computedProbs[eventIndex]) ++eventIndex
 
-    print(`Fonction getOneEventFromProbs() :
-        nombre aléatoire entre 0 et 1 choisi selon une loi uniforme : ${rand.toFixed(3)}
-        n° de l'événement correspondant à ce tirage : ${eventIndex}`)
+    print(`Fonction discreteDistribution() :
+        nombre aléatoire entre 0 et 1 choisi selon une loi uniforme continue : ${rand.toFixed(3)}
+        n° de l'événement correspondant à ce tirage par loi discrète : ${eventIndex}`)
     return eventIndex
 }

@@ -7,9 +7,9 @@
 /***** TOURNER LA ROUE *****/
 
 // Fonction qui calcule tire un événement aléatoire et calcule l'angle de rotation de la roue correspondant
-const computeAngle = (probs, wheelNumbers) => {
-    const index = getOneEventFromProbs(probs)
-    const angle = index*45 + Math.floor(5 + Math.random()*40)
+const computeAngleAndValue = (probs, wheelNumbers) => {
+    const index = discreteDistribution(probs)
+    const angle = index*45 + discreteUniformDistribution(5, 40)
 
     dottednumber = wheelNumbers[index].innerHTML
 
@@ -19,8 +19,29 @@ const computeAngle = (probs, wheelNumbers) => {
         angle normalisé calculé (45*événement + un petit "bruit" aléatoire): ${angle}°`)
     print("---------------------------")
     //appel fonction déplacement pour faire avancer le sous-marin
-    Deplacement(dottednumber)
-    return angle
+    // Deplacement(dottednumber)
+    return { angle: angle, value: dottednumber }
+}
+
+// Animation du score
+const createScoreDiv = (score, elt) => {
+    const scoreDiv = document.createElement('div')
+    scoreDiv.setAttribute('class', 'scoreDiv')
+    scoreDiv.appendChild(document.createTextNode(`+${score}`))
+    scoreDiv.style.position = 'absolute'
+    scoreDiv.style.width = '20px'
+    scoreDiv.style.height = '20px'
+    scoreDiv.style.zIndex = 3
+    document.body.insertBefore(scoreDiv, document.getElementById("container"))
+
+    const bodyRect = document.body.getBoundingClientRect(), eltRect = elt.getBoundingClientRect()
+    const offsetY = eltRect.top - bodyRect.top, offsetX = eltRect.right - bodyRect.left
+
+    console.log(offsetX)
+    console.log(offsetY)
+
+    scoreDiv.style.top = `${offsetY}px`
+    scoreDiv.style.left = `${offsetX}px`
 }
 
 /***** CALCULER LA FATIGUE DU REQUIN *****/
@@ -88,12 +109,8 @@ function Deplacement(advance) {
     submarine = document.querySelector('#submarine')
     submarineId = submarine.parentElement.dataset.id
 
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-    }
-
     //TODO valeur du requinou
-    go_shark = getRandomInt(2)
+    go_shark = discreteUniformDistribution(0, 2)
     
     if(go_shark == 0){
         go_shark = 0
@@ -164,20 +181,24 @@ const checkbox = document.getElementById('info')
 const wheelNumbers = Array.from(document.getElementsByClassName("wheelNumbers"))
 const slider = document.getElementById('wheelProbSlider')
 const generatorButton = document.getElementById('generatorButton')
+const submarineColors = Array.from(document.getElementsByClassName("submarineColor"))
 
+// Desactivation du bouton "tourner la roue" au début (tant que la roue n'est pas générée)
 startButton.disabled = true
-submarine.style.filter = `hue-rotate(${getIntegerFrom0To360()}deg)`
+
+// Calcul aléatoire des couleurs du sous-marin
+submarineColors.map(elt => elt.style.filter = `hue-rotate(${continuousUniformDistribution(0, 360)}deg)`)
+submarine.style.filter = submarineColors[0].style.filter
 
 // Définition des variables utiles
-let wheelDegree = 0
+let wheelValues = 0
 let INFO = true
 checkbox.checked = true
 
 // Différentes probabilités de test
-const probas = [1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8]
-const probas5 = [1/14, 1/14, 1/14, 1/14, 1/14, 7/14, 1/14, 1/14]
-const pourcent = [4/100, 4/100, 4/100, 4/100, 5/100, 5/100, 4/100, 70/100]
-let probFromSlider = getProbFromSlider(slider)
+const probasTest = [1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8]
+const pourcentTest = [4/100, 4/100, 4/100, 4/100, 5/100, 5/100, 4/100, 70/100]
+let probFromSlider = getProbFromSlider(slider) // Probabilité à utiliser !!
 
 
 
@@ -185,15 +206,23 @@ let probFromSlider = getProbFromSlider(slider)
 
 startButton.addEventListener('click', () => {
     startButton.style.pointerEvents = 'none';
-    wheelDegree = computeAngle(probFromSlider, wheelNumbers)
+    wheelValues = computeAngleAndValue(probFromSlider, wheelNumbers)
     wheel.style.transition = 'all 0.5s ease-out'
-    wheel.style.transform = `rotate(${wheelDegree+360}deg)`
+    wheel.style.transform = `rotate(${wheelValues.angle+360}deg)`
 })
 
 wheel.addEventListener('transitionend', () => {
+    // Fin de la roue tournante
     startButton.style.pointerEvents = 'auto';
     wheel.style.transition = 'none'
-    wheel.style.transform = `rotate(${wheelDegree}deg)`
+    wheel.style.transform = `rotate(${wheelValues.angle}deg)`
+
+    // Animation des scores
+    createScoreDiv(wheelValues.value, document.getElementById('submarine'))
+    createScoreDiv("VALEUR A RECUPERER", document.getElementById('shark'))
+
+    // Déplacements des entités
+    setTimeout(() => Deplacement(wheelValues.value), 500)
 })
 
 checkbox.addEventListener('click', () => {
@@ -203,6 +232,10 @@ checkbox.addEventListener('click', () => {
 slider.addEventListener('input', () => {
     probFromSlider = getProbFromSlider(slider)
 })
+
+submarineColors.map(elt => elt.addEventListener('click', () => {
+    submarine.style.filter = elt.style.filter
+}))
 
 generatorButton.addEventListener('click', () => {
     // Assigne à la roue des entiers : 0, 1 ou 2
@@ -214,22 +247,22 @@ generatorButton.addEventListener('click', () => {
     switch(wheelChoice) {
         case '20':
             wheelNumbers.map(item => {
-                item.innerHTML = getOneEventFromProbs(choice20) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+                item.innerHTML = discreteDistribution(choice20) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
             })
             break
         case '10':
             wheelNumbers.map(item => {
-                item.innerHTML = getOneEventFromProbs(choice10) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+                item.innerHTML = discreteDistribution(choice10) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
             })
             break
         case '210':
             wheelNumbers.map(item => {
-                item.innerHTML = getOneEventFromProbs(choice210) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+                item.innerHTML = discreteDistribution(choice210) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
             })
             break
         default:
             wheelNumbers.map(item => {
-                item.innerHTML = getOneEventFromProbs(choice210) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
+                item.innerHTML = discreteDistribution(choice210) // Fonctionne uniquement avec cette méthode car on veut un 0, un 1 ou un 2 donc pas besoin d'étape supplémentaire
             })
     }
     startButton.disabled = false

@@ -61,6 +61,21 @@ label {
   color:#006BA6;
 }
 
+.scoreDiv {
+  animation: scoreAnim 2s ease forwards;
+}
+
+@keyframes scoreAnim {
+  from {
+    opacity: 100;
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
 #sentence-shark{
   color:#006BA6;
   text-align: center;
@@ -82,7 +97,21 @@ label {
     width: 100%; /* Width of the outside container */
     display: flex;
     align-items: center;
-  }
+}
+
+#colorGrid {
+  display: flex;
+  align-items: center;
+  width: 350px;
+  height: 50px;
+}
+
+.submarineColor {
+  width: 25%;
+  height: inherit;
+  margin: 2px;
+  background-color: #fdcc1a;
+}
 
 #shark, #submarine{
   width: 50px;
