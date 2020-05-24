@@ -4,6 +4,16 @@
  ***************
 */
 
+// Modale
+function modale(text){
+    document.querySelector("#wrapper-modale").classList.add('open')
+    document.querySelector("#modale-text").innerHTML = text
+    
+    document.querySelector("#button-modale").addEventListener('click', () => {
+        location.reload()
+    });
+}
+
 /***** TOURNER LA ROUE *****/
 
 // Fonction qui calcule tire un événement aléatoire et calcule l'angle de rotation de la roue correspondant
@@ -48,6 +58,7 @@ const createScoreDiv = (score, elt) => {
 
 /***** Créer ligne tableau de score *****/
 function createTableLine(turn, go_shark){
+
     tr = document.createElement('tr')
     if(go_shark == 0){
         tr.innerHTML = '<td>Tour '+turn+'</td><td>x</td><td></td>'
@@ -55,13 +66,17 @@ function createTableLine(turn, go_shark){
         tr.innerHTML = '<td>Tour '+turn+'</td><td></td><td>x</td>'
     }  
     document.querySelector('table#score-shark tbody').appendChild(tr)
+    
+    setTimeout(function(){ 
+        document.querySelector('#button-tourner').disabled = false
+    }, 1000);
 }
 
 /***** Calculer le score final *****/
 function finalScore(){
 
     //bloquer le button pour empêcher que le joueur joue après la fin du jeu
-    document.querySelector('#button').setAttribute('disabled', 'disabled')
+    //document.querySelector('.buttons').setAttribute('disabled', 'disabled')
 
      //calculer données du tableau
     trFinal = document.createElement('tr')
@@ -103,22 +118,30 @@ document.querySelector('#parcours td[data-id="1"]').innerHTML = elementShark
 document.querySelector('#parcours td[data-id="3"]').innerHTML = elementSubmarine
 
 function Deplacement(advance) {
+
     shark = document.querySelector('#shark')
     sharkId = shark.parentElement.dataset.id
 
     submarine = document.querySelector('#submarine')
     submarineId = submarine.parentElement.dataset.id
 
-    //TODO valeur du requinou
-    go_shark = discreteUniformDistribution(0, 2)
-    
+    const sharkChoice = document.querySelector("input[name=shark-choices]:checked").value
+    console.log(sharkChoice)
+
+    if(sharkChoice == 50){
+        go_shark = discreteUniformDistribution(0, 2)
+    }
+    else if(sharkChoice == 75){
+        go_shark = discreteUniformDistribution(0, 4)
+    }  
+
+    console.log(go_shark)
+
     if(go_shark == 0){
         go_shark = 0
-    }else if(go_shark == 1){
+    }else if(go_shark > 0){
         go_shark = 2
     }
-    //END TODO
-
     if(go_shark == 0){
         nb_zero++
     }
@@ -131,7 +154,7 @@ function Deplacement(advance) {
     if (turn<=5){
         turn++
         if(sum_shark==sum_submarine){
-            alert("Game over")
+            modale('Game over')
             createTableLine(turn,go_shark)
             finalScore()
         }
@@ -156,12 +179,12 @@ function Deplacement(advance) {
             createTableLine(turn,go_shark)
 
             if(turn == 5){
-                alert("End of the game, see you soon ")
+                modale('You win')
                 finalScore()
             }
         }
         else{
-            alert("Le requin va trop vite !")
+            modale('Le requin va trop vite !')
             createTableLine(turn,go_shark)
             finalScore()
         }
@@ -176,7 +199,7 @@ function Deplacement(advance) {
 
 // Récupération des éléments HTML
 const wheel = document.getElementById('wheelSVG')
-const startButton = document.getElementById('button')
+const startButton = document.getElementById('button-tourner')
 const checkbox = document.getElementById('info')
 const wheelNumbers = Array.from(document.getElementsByClassName("wheelNumbers"))
 const slider = document.getElementById('wheelProbSlider')
@@ -222,6 +245,7 @@ wheel.addEventListener('transitionend', () => {
     createScoreDiv("VALEUR A RECUPERER", document.getElementById('shark'))
 
     // Déplacements des entités
+    startButton.disabled = true
     setTimeout(() => Deplacement(wheelValues.value), 500)
 })
 

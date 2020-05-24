@@ -62,14 +62,23 @@
 
         <div class="slidecontainer">
           <input type="range" min="0" max="100" value="50" class="slider" id="wheelProbSlider">
-          <input class="buttons" type="button" id="button" value="Tourner la roue">
+          <input class="buttons" type="button" id="button-tourner" value="Tourner la roue">
         </div>
       </div>
 
       <div id="bottom">
         <input type="checkbox" id="info" name="info" checked>
         <label for="info">Messages d'informations accessibles via la console (F12)</label>
+        <br><br>
+        <form>
+          Réglez la vitesse du requin
+          <input type="radio" id="sharkChoice1" name="shark-choices" value="50" checked>
+          <label for="sharkChoice1">Super rapide</label>
 
+          <input type="radio" id="sharkChoice2" name="shark-choices" value="75">
+          <label for="sharkChoice2">Super (méga) rapide</label>
+        </form>
+        <br>
         <div id="colorGrid">
           <p>Changer la couleur du sous-marin !!</p>
           <div class="submarineColor" id="submarineColor1"></div>
@@ -103,6 +112,13 @@
         <br>
     
         <!--- évaluer la fatigue du requin par rapport à la normale, soit 0 (50%), soit 2 (50%)-->
+      </div>
+    </div>
+
+
+    <div id="wrapper-modale">
+      <div id="modale">
+        <span id="modale-text"></span>
         <h2>État du requin</h2>
         <table id="score-shark">
           <thead>
@@ -116,7 +132,8 @@
           </tbody>
         </table>
         <p id="sentence-shark"></p>
-      </div>
+        <span id="button-modale">Rejouer</span>
+      </div>>
     </div>
 
     <script src="scripts/index.js?v=1"></script>

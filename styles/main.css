@@ -5,6 +5,9 @@
 }
 body{
   font-family: "Gill Sans", sans-serif;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 #container {
@@ -29,7 +32,7 @@ body{
     padding-bottom: 15px;
     cursor: pointer;
     font-weight: 700;
-    background-color:#EAC435;
+    background-color:#006BA6;
     color :#FBFEF9;
     border-radius: 22px;
     border: none;
@@ -40,21 +43,23 @@ body{
 .buttons:hover{
     opacity: 0.8;
     color: #FBFEF9;
-    background-color:#84D2F6;
+    background-color:#EAC435;
     text-decoration: none;
 }
 
 .buttons:disabled {
-  cursor: default;
+  cursor: not-allowed;
   color: #FBFEF9;
   background-color: #006BA6;
-  opacity: 1;
+  opacity:0.5;
 }
 
 h2{
   color:#006BA6;
   margin: 20px;
   text-align: center;
+  font-size: 30px;
+  font-weight: normal;
 }
 
 label {
@@ -200,4 +205,54 @@ table#score-shark tr th{
   border-radius: 30px;
   background: #DDD;
   cursor: pointer; /* Cursor on hover */
+}
+
+#wrapper-modale{
+  background-color: rgba(0,0,0,0.8);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: none;
+  margin: auto;
+  text-align: center;
+}
+
+#wrapper-modale #modale{
+  margin: auto;
+  margin-top: 70px;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 30px;
+  width: 600px;
+  position: relative;
+  text-align: center;
+}
+
+#wrapper-modale #modale #button-modale{
+  display: inline-block;
+  margin: auto;
+  padding: 20px;
+  background:#fdcc1a;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  border-radius :10px;
+}
+
+#wrapper-modale.open{
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+#modale-text{
+  color:#fdcc1a;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
 }
