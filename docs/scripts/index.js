@@ -109,8 +109,11 @@ function finalScore(){
 /***** FAIRE AVANCER LE SOUS-MARIN ET LE REQUIN *****/
 
 const sharkRiserAudio = new Audio('IMAC_S4_Maths/sounds/riser.mp3')
+sharkRiserAudio.volume = 0.7
 const sharkEndAudio = new Audio('IMAC_S4_Maths/sounds/end.mp3')
+sharkEndAudio.volume = 0.15
 const winAudio = new Audio('IMAC_S4_Maths/sounds/win.mp3')
+winAudio.volume = 0.2
 
 turn = 0
 nb_zero = 0
@@ -219,7 +222,8 @@ function Deplacement(advance, go_shark) {
 */
 
 const ambiantAudio = new Audio('IMAC_S4_Maths/sounds/ambiant.mp3')
-ambiantAudio.play()
+setTimeout(() => ambiantAudio.play(), 100)
+
 
 // Récupération des éléments HTML
 const wheel = document.getElementById('wheelSVG')

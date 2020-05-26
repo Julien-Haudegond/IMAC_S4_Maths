@@ -6,6 +6,7 @@ Réalisé par Cyrielle LASSARRE et Julien HAUDEGOND.
 
 Template initial : [Vanilla JS Wheel of Fortune](https://github.com/weibenfalk/vanilla-js-wheel-of-fortune)
 
-**Pour une expérience plus sympathique, vous pouvez autoriser votre navigateur à jouer des sons !**
+**Pour une expérience plus sympathique, vous pouvez autoriser votre navigateur à jouer des sons !** <br>
+**ATTENTION : le son peut être assez fort**
 
 Petit trick utilisé pour gérer les problèmes de "relative path" avec GitHub Pages : déplacer les assets dans un dossier du même nom que le repository ! Comme ça, en local, ça fonctionne et sur GitHub Pages, on le bluff avec le nom du dossier et ça fonctionne aussi !
