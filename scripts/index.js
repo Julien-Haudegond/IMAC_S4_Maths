@@ -108,23 +108,25 @@ function finalScore(){
 
 /***** FAIRE AVANCER LE SOUS-MARIN ET LE REQUIN *****/
 
+const sharkRiserAudio = new Audio('../sounds/riser.mp3')
+const sharkEndAudio = new Audio('../sounds/end.mp3')
+const winAudio = new Audio('../sounds/win.mp3')
+
 turn = 0
 nb_zero = 0
 
-elementShark = '<img id="shark" src="img/requin.jpg">'
-elementSubmarine = '<img id="submarine" src="img/sousmarin.jpg">'
+const elementShark = document.createElement('img')
+elementShark.setAttribute('id', 'shark')
+elementShark.setAttribute('src', 'img/requin.jpg')
 
-document.querySelector('#parcours td[data-id="1"]').innerHTML = elementShark
-document.querySelector('#parcours td[data-id="3"]').innerHTML = elementSubmarine
+const elementSubmarine = document.createElement('img')
+elementSubmarine.setAttribute('id', 'submarine')
+elementSubmarine.setAttribute('src', 'img/sousmarin.jpg')
 
-function Deplacement(advance) {
+document.querySelector('#parcours td[data-id="1"]').appendChild(elementShark)
+document.querySelector('#parcours td[data-id="3"]').appendChild(elementSubmarine)
 
-    shark = document.querySelector('#shark')
-    sharkId = shark.parentElement.dataset.id
-
-    submarine = document.querySelector('#submarine')
-    submarineId = submarine.parentElement.dataset.id
-
+function sharkMove() {
     const sharkChoice = document.querySelector("input[name=shark-choices]:checked").value
     console.log(sharkChoice)
 
@@ -141,7 +143,20 @@ function Deplacement(advance) {
         go_shark = 0
     }else if(go_shark > 0){
         go_shark = 2
+        sharkRiserAudio.play()
     }
+
+    return go_shark
+}
+
+function Deplacement(advance, go_shark) {
+
+    shark = document.querySelector('#shark')
+    sharkId = shark.parentElement.dataset.id
+
+    submarine = document.querySelector('#submarine')
+    submarineId = submarine.parentElement.dataset.id
+
     if(go_shark == 0){
         nb_zero++
     }
@@ -155,6 +170,8 @@ function Deplacement(advance) {
         turn++
         if(sum_shark==sum_submarine){
             modale('Game over')
+            sharkRiserAudio.pause()
+            sharkEndAudio.play()
             createTableLine(turn,go_shark)
             finalScore()
         }
@@ -170,21 +187,25 @@ function Deplacement(advance) {
 
             //pour replacer les images dans les nouvelles bonnes cases
             if(go_shark != 0){
-                document.querySelector('#parcours td[data-id="'+sum_shark+'"]').innerHTML = elementShark
+                document.querySelector('#parcours td[data-id="'+sum_shark+'"]').appendChild(elementShark)
             }
 
             if(go_submarine != 0){
-                document.querySelector('#parcours td[data-id="'+sum_submarine+'"]').innerHTML = elementSubmarine
+                document.querySelector('#parcours td[data-id="'+sum_submarine+'"]').appendChild(elementSubmarine)
             }
             createTableLine(turn,go_shark)
 
             if(turn == 5){
                 modale('You win')
+                sharkRiserAudio.pause()
+                winAudio.play()
                 finalScore()
             }
         }
         else{
             modale('Le requin va trop vite !')
+            sharkRiserAudio.pause()
+            sharkEndAudio.play()
             createTableLine(turn,go_shark)
             finalScore()
         }
@@ -196,6 +217,9 @@ function Deplacement(advance) {
  ** SCRIPT **
  ************
 */
+
+const ambiantAudio = new Audio('../sounds/ambiant.mp3')
+ambiantAudio.play()
 
 // Récupération des éléments HTML
 const wheel = document.getElementById('wheelSVG')
@@ -211,7 +235,7 @@ startButton.disabled = true
 
 // Calcul aléatoire des couleurs du sous-marin
 submarineColors.map(elt => elt.style.filter = `hue-rotate(${continuousUniformDistribution(0, 360)}deg)`)
-submarine.style.filter = submarineColors[0].style.filter
+elementSubmarine.style.filter = submarineColors[0].style.filter
 
 // Définition des variables utiles
 let wheelValues = 0
@@ -240,13 +264,19 @@ wheel.addEventListener('transitionend', () => {
     wheel.style.transition = 'none'
     wheel.style.transform = `rotate(${wheelValues.angle}deg)`
 
+    const go_shark = sharkMove()
+
     // Animation des scores
-    createScoreDiv(wheelValues.value, document.getElementById('submarine'))
-    createScoreDiv("VALEUR A RECUPERER", document.getElementById('shark'))
+    createScoreDiv(wheelValues.value, elementSubmarine)
+    createScoreDiv(go_shark, elementShark)
 
     // Déplacements des entités
     startButton.disabled = true
-    setTimeout(() => Deplacement(wheelValues.value), 500)
+    setTimeout(() => { 
+        Deplacement(wheelValues.value, go_shark)
+        Array.from(document.getElementsByClassName('scoreDiv')).map(item => item.parentNode.removeChild(item))
+        startButton.disabled = false
+    }, 800)
 })
 
 checkbox.addEventListener('click', () => {
@@ -258,7 +288,7 @@ slider.addEventListener('input', () => {
 })
 
 submarineColors.map(elt => elt.addEventListener('click', () => {
-    submarine.style.filter = elt.style.filter
+    elementSubmarine.style.filter = elt.style.filter
 }))
 
 generatorButton.addEventListener('click', () => {
