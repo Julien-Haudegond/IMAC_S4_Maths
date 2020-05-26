@@ -108,9 +108,9 @@ function finalScore(){
 
 /***** FAIRE AVANCER LE SOUS-MARIN ET LE REQUIN *****/
 
-const sharkRiserAudio = new Audio('/../sounds/riser.mp3')
-const sharkEndAudio = new Audio('/../sounds/end.mp3')
-const winAudio = new Audio('/../sounds/win.mp3')
+const sharkRiserAudio = new Audio('/sounds/riser.mp3')
+const sharkEndAudio = new Audio('/sounds/end.mp3')
+const winAudio = new Audio('/sounds/win.mp3')
 
 turn = 0
 nb_zero = 0
@@ -218,7 +218,7 @@ function Deplacement(advance, go_shark) {
  ************
 */
 
-const ambiantAudio = new Audio('/../sounds/ambiant.mp3')
+const ambiantAudio = new Audio('/sounds/ambiant.mp3')
 ambiantAudio.play()
 
 // Récupération des éléments HTML
