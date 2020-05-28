@@ -37,28 +37,6 @@
             <text id="wheelNumber7" class="wheelNumbers" transform="translate(348.44 158.61) rotate(22.5)"></text>
           </svg>
         </div>
-        <div id="wheelGenerator">
-          <div>
-            <div>
-              <input type="radio" id="wheelChoice1"
-              name="wheel-choices" value="20" checked>
-              <label for="wheelChoice1">Quelques 2 et beaucoup de 0</label>
-            </div>
-    
-            <div>
-              <input type="radio" id="wheelChoice2"
-              name="wheel-choices" value="10">
-              <label for="wheelChoice2">Beaucoup de 1 et peu de 0</label>
-            </div>
-      
-            <div>
-              <input type="radio" id="wheelChoice3"
-              name="wheel-choices" value="210">
-              <label for="wheelChoice3">Des 0, des 1 et des 2 uniformes</label>
-            </div>
-          </div>
-          <input class="buttons" type="button" id="generatorButton" value="Générer la roue">
-        </div>
 
         <div class="slidecontainer">
           <input type="range" min="0" max="100" value="50" class="slider" id="wheelProbSlider">
@@ -70,22 +48,6 @@
         <input type="checkbox" id="info" name="info" checked>
         <label for="info">Messages d'informations accessibles via la console (F12)</label>
         <br><br>
-        <form>
-          Réglez la vitesse du requin
-          <input type="radio" id="sharkChoice1" name="shark-choices" value="50" checked>
-          <label for="sharkChoice1">Super rapide</label>
-
-          <input type="radio" id="sharkChoice2" name="shark-choices" value="75">
-          <label for="sharkChoice2">Super (méga) rapide</label>
-        </form>
-        <br>
-        <div id="colorGrid">
-          <p>Changer la couleur du sous-marin !!</p>
-          <div class="submarineColor" id="submarineColor1"></div>
-          <div class="submarineColor" id="submarineColor2"></div>
-          <div class="submarineColor" id="submarineColor3"></div>
-          <div class="submarineColor" id="submarineColor4"></div>
-        </div>
 
         <table id="parcours">
           <tbody>
@@ -119,21 +81,74 @@
     <div id="wrapper-modale">
       <div id="modale">
         <span id="modale-text"></span>
-        <h2>État du requin</h2>
-        <table id="score-shark">
-          <thead>
-            <tr>
-              <th></th>
-              <th>0</th>
-              <th>2</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-        <p id="sentence-shark"></p>
-        <span id="button-modale">Rejouer</span>
-      </div>>
+
+        <div id="rules">
+          <p>Vous naviguez tranquillement dans votre sous-marin lorsqu'un requin prend vos trousses. Votre objectif : aller plus vite que lui ! Pour se faire, il vous faudra obtenir un bon score sur la roue afin d'avancer. Vous avez cinq tirages pour faire la différence et gagner la partie ! Mais avant de jouer, usez de votre ruse et choisissez vos options de jeu !</p>
+
+          <div id="wheelGenerator">
+            <div id="wheelContainer">
+              <div>
+                <h3> Choisissez votre roue </h3>
+                <input type="radio" id="wheelChoice1"
+                name="wheel-choices" value="20" checked>
+                <label for="wheelChoice1">Quelques 2 et beaucoup de 0</label>
+              </div>
+      
+              <div>
+                <input type="radio" id="wheelChoice2"
+                name="wheel-choices" value="10">
+                <label for="wheelChoice2">Beaucoup de 1 et peu de 0</label>
+              </div>
+        
+              <div>
+                <input type="radio" id="wheelChoice3"
+                name="wheel-choices" value="210">
+                <label for="wheelChoice3">Des 0, des 1 et des 2 uniformes</label>
+              </div>
+            </div>
+            
+          </div>
+
+          <form>
+            <h3> Réglez la vitesse du requin </h3>
+            <input type="radio" id="sharkChoice1" name="shark-choices" value="50" checked>
+            <label for="sharkChoice1">Super rapide</label>
+  
+            <input type="radio" id="sharkChoice2" name="shark-choices" value="75">
+            <label for="sharkChoice2">Super (méga) rapide</label>
+          </form>
+
+          <div id="colorChoice">
+            <h3>Changer la couleur du sous-marin </h3>
+            <div id="colorGrid">
+              <div class="submarineColor" id="submarineColor1"></div>
+              <div class="submarineColor" id="submarineColor2"></div>
+              <div class="submarineColor" id="submarineColor3"></div>
+              <div class="submarineColor" id="submarineColor4"></div>
+            </div>
+          </div>
+          <span id="close-modale">C'est parti !</span>
+        </div>
+
+        
+
+        <div id="shark-state">
+          <h2>État du requin</h2>
+          <table id="score-shark">
+            <thead>
+              <tr>
+                <th></th>
+                <th>0</th>
+                <th>2</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <p id="sentence-shark"></p>
+          <span id="button-modale">Rejouer</span>
+        </div>
+      </div>
     </div>
 
     <script src="scripts/index.js?v=1"></script>

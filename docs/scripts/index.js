@@ -14,6 +14,19 @@ function modale(text){
     });
 }
 
+function modaleBienvenue(){
+    document.querySelector("#shark-state").classList.add('hidden')
+    document.querySelector("#wrapper-modale").classList.add('open')
+    document.querySelector("#modale-text").innerHTML = 'Règles du jeu'
+
+    document.querySelector("#close-modale").addEventListener('click', () => {
+        document.querySelector("#wrapper-modale").classList.remove('open')
+        document.querySelector("#rules").classList.add('hidden')
+        document.querySelector("#shark-state").classList.remove('hidden')
+    });
+
+}
+
 /***** TOURNER LA ROUE *****/
 
 // Fonction qui calcule tire un événement aléatoire et calcule l'angle de rotation de la roue correspondant
@@ -223,7 +236,7 @@ function Deplacement(advance, go_shark) {
 
 const ambiantAudio = new Audio('IMAC_S4_Maths/sounds/ambiant.mp3')
 setTimeout(() => ambiantAudio.play(), 100)
-
+modaleBienvenue();
 
 // Récupération des éléments HTML
 const wheel = document.getElementById('wheelSVG')
@@ -231,7 +244,7 @@ const startButton = document.getElementById('button-tourner')
 const checkbox = document.getElementById('info')
 const wheelNumbers = Array.from(document.getElementsByClassName("wheelNumbers"))
 const slider = document.getElementById('wheelProbSlider')
-const generatorButton = document.getElementById('generatorButton')
+const generatorButton = document.getElementById('close-modale')
 const submarineColors = Array.from(document.getElementsByClassName("submarineColor"))
 
 // Desactivation du bouton "tourner la roue" au début (tant que la roue n'est pas générée)
@@ -325,4 +338,4 @@ generatorButton.addEventListener('click', () => {
     }
     startButton.disabled = false
     generatorButton.disabled = true
-})
+});
