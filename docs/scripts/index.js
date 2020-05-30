@@ -140,10 +140,14 @@ function finalScore(){
 
 const sharkRiserAudio = new Audio('IMAC_S4_Maths/sounds/riser.mp3')
 sharkRiserAudio.volume = 0.7
-const sharkEndAudio = new Audio('IMAC_S4_Maths/sounds/end.mp3')
+const sharkEndAudio = new Audio('IMAC_S4_Maths/sounds/shark_end.mp3')
 sharkEndAudio.volume = 0.15
 const winAudio = new Audio('IMAC_S4_Maths/sounds/win.mp3')
 winAudio.volume = 0.2
+const wheelAudio = new Audio('IMAC_S4_Maths/sounds/wheel_bubbles.mp3')
+wheelAudio.volume = 0.7
+const twinkleAudio = new Audio('IMAC_S4_Maths/sounds/twinkle.mp3')
+twinkleAudio.volume = 0.05
 
 turn = 0
 nb_zero = 0
@@ -309,8 +313,9 @@ let probFromSlider = getProbFromSlider(slider) // Probabilité à utiliser !!
 startButton.addEventListener('click', () => {
     startButton.style.pointerEvents = 'none';
     wheelValues = computeAngleAndValue(probFromSlider, wheelNumbers)
-    wheel.style.transition = 'all 0.5s ease-out'
+    wheel.style.transition = 'all 0.8s ease-out'
     wheel.style.transform = `rotate(${wheelValues.angle+360}deg)`
+    wheelAudio.play()
 })
 
 wheel.addEventListener('transitionend', () => {
@@ -320,6 +325,9 @@ wheel.addEventListener('transitionend', () => {
     wheel.style.transform = `rotate(${wheelValues.angle}deg)`
 
     const go_shark = sharkMove()
+
+    // Joue un son si le sous-marin avance
+    if (wheelValues.value > 0) twinkleAudio.play()
 
     // Animation des scores
     createScoreDiv(wheelValues.value, elementSubmarine)
@@ -343,6 +351,8 @@ slider.addEventListener('input', () => {
 })
 
 submarineColors.map(elt => elt.addEventListener('click', () => {
+    submarineColors.map(item => item.style.border = "none")
+    elt.style.border = "solid 2px"
     elementSubmarine.style.filter = elt.style.filter
 }))
 

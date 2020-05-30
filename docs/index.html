@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>S4 - Maths</title>
+    <title>Il n'en reste-requin !!</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles/main.css?v=1" />
     <script src="scripts/utils.js?v=1"></script>
@@ -17,7 +17,7 @@
           <svg id="Wheel" 
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 628.24 628.24">
             <defs>
-                <style>.wheelPart-even{fill:#ff4a4a;}.wheelPart-even,.wheelPart-odd{stroke:#000;stroke-miterlimit:10;}.wheelPart-odd{fill:#FFDF65;}.wheelNumbers{font-size:100px;font-family:ArialMT, Arial;}</style>
+                <style>.wheelPart-even{fill:#ff9e8c;}.wheelPart-even,.wheelPart-odd{stroke:#000;stroke-miterlimit:10;}.wheelPart-odd{fill:#91E1F9;}.wheelNumbers{font-size:100px;font-family:ArialMT, Arial;}</style>
             </defs>
             <title>roue</title>
             <path class="wheelPart-even" d="M500,186.38V500L278.24,278.24A312.63,312.63,0,0,1,500,186.38Z" transform="translate(-185.88 -185.88)"/>
@@ -39,6 +39,7 @@
           </svg>
         </div>
 
+        <h2 id="slider-text">Ce slider définit la probabilité de tomber sur l'une ou l'autre des couleurs ! Quand le curseur est au milieu, les deux couleurs ont la même chance d'apparaître !</h2>
         <div class="slidecontainer">
           <input type="range" min="0" max="100" value="50" class="slider" id="wheelProbSlider">
           <input class="buttons" type="button" id="button-tourner" value="Tourner la roue">
@@ -46,8 +47,7 @@
       </div>
 
       <div id="bottom">
-        <input type="checkbox" id="info" name="info" checked>
-        <label for="info">Messages d'informations accessibles via la console (F12)</label>
+
         <br><br>
 
         <table id="parcours">
@@ -73,7 +73,10 @@
         </table>
     
         <br>
-    
+        <div id="info-div">
+          <input type="checkbox" id="info" name="info" checked>
+          <label for="info">Messages d'informations accessibles via la console (F12)</label>
+        </div>
         <!--- évaluer la fatigue du requin par rapport à la normale, soit 0 (50%), soit 2 (50%)-->
       </div>
     </div>
@@ -81,10 +84,11 @@
 
     <div id="wrapper-modale">
       <div id="modale">
+        <h1 id="modale-title">Il n'en reste-requin !!</h1>
         <span id="modale-text"></span>
 
         <div id="rules">
-          <p>Vous naviguez tranquillement dans votre sous-marin lorsque vous vous apercevez qu'un requin est à vos trousses. Votre objectif : aller plus vite que lui ! Pour se faire, il vous faudra obtenir un bon score sur la roue afin d'avancer. Vous avez cinq tirages pour faire la différence et gagner la partie ! Mais avant de jouer, usez de votre ruse et choisissez vos options de jeu !</p>
+          <p>Vous naviguez tranquillement dans votre sous-marin lorsque vous vous apercevez qu'un requin est à vos trousses. Votre objectif : aller plus vite que lui ! Pour ce faire, il vous faudra obtenir un bon score sur la roue afin d'avancer. Vous avez cinq tirages pour faire la différence et gagner la partie ! Mais avant de jouer, usez de votre ruse et choisissez vos options de jeu !</p>
 
           <form>
             <h3> Réglez la vitesse du requin </h3>
@@ -120,7 +124,7 @@
           </div>
 
           <div id="colorChoice">
-            <h3>Changer la couleur du sous-marin </h3>
+            <h3>Changez la couleur du sous-marin </h3>
             <div id="colorGrid">
               <div class="submarineColor" id="submarineColor1"></div>
               <div class="submarineColor" id="submarineColor2"></div>
