@@ -79,6 +79,8 @@ function createTableLine(turn, go_shark){
         tr.innerHTML = '<td>Tour '+turn+'</td><td></td><td>x</td>'
     }  
     document.querySelector('table#score-shark tbody').appendChild(tr)
+    //afficher le nombre de tours en cours
+    document.querySelector('#nb-tours-affichage').innerHTML = turn
     
     setTimeout(function(){ 
         document.querySelector('#button-tourner').disabled = false
@@ -117,6 +119,21 @@ function finalScore(){
     }else{
         sentence.innerHTML = 'Une cure de vitamines se fait ressentir chez notre requin.'
     }
+
+    //affichage de la phrase de conclusion de la loi binomiale donc de la probabilité du requin d'avoir ce score
+    nb_essai = turn
+    valeur_success = (document.querySelector("input[name=shark-choices]:checked").value)/100
+    nb_succes = turn-nb_zero
+    label = document.querySelector("input[name=shark-choices]:checked").dataset.label
+
+    if (label == 1){
+        label = 'super rapide'
+    }else if(label == 2){
+        label = 'super (méga) rapide'
+    }
+
+    sentenceLoiBinomiale = document.querySelector('p#sentence-binomiale')
+    sentenceLoiBinomiale.innerHTML = 'Le requin avait une probabilité de '+LoiBinomiale(nb_essai,valeur_success,nb_succes)+'%, d\'avancer '+nb_succes+' fois de 2 cases, en '+nb_essai+' tours en étant en mode '+label+' ('+valeur_success+' = valeur succès)'
 }
 
 /***** FAIRE AVANCER LE SOUS-MARIN ET LE REQUIN *****/
@@ -144,7 +161,6 @@ document.querySelector('#parcours td[data-id="3"]').appendChild(elementSubmarine
 
 function sharkMove() {
     const sharkChoice = document.querySelector("input[name=shark-choices]:checked").value
-    console.log(sharkChoice)
 
     if(sharkChoice == 50){
         go_shark = discreteUniformDistribution(0, 2)
@@ -152,8 +168,6 @@ function sharkMove() {
     else if(sharkChoice == 75){
         go_shark = discreteUniformDistribution(0, 4)
     }  
-
-    console.log(go_shark)
 
     if(go_shark == 0){
         go_shark = 0
@@ -219,13 +233,37 @@ function Deplacement(advance, go_shark) {
             }
         }
         else{
-            modale('Le requin va trop vite !')
+            modale('Game over')
             sharkRiserAudio.pause()
             sharkEndAudio.play()
             createTableLine(turn,go_shark)
             finalScore()
         }
     }
+}
+
+/***** CALCULER LA PROBABILITÉ D'AVOIR CE NOMBRE DE SUCCÈS *****/
+
+//Application de la loi binomiale
+function LoiBinomiale(n,p,k){
+    result = 0
+    result = CoefficientBinomial(n,k) * Math.pow(p,k) * Math.pow((1 - p),(n-k))
+
+    arrondi = result*10000;
+    arrondi = Math.round(arrondi);
+    arrondi = arrondi/10000;
+
+    return arrondi
+}
+
+//Calcul du coefficient binomial
+function CoefficientBinomial(n, k) {
+    if ((typeof n !== 'number') || (typeof k !== 'number')) 
+ return false; 
+   var coeff = 1;
+   for (var x = n-k+1; x <= n; x++) coeff *= x;
+   for (x = 1; x <= k; x++) coeff /= x;
+   return coeff;
 }
 
 /*

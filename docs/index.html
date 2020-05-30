@@ -10,6 +10,7 @@
 
   <body>
     <div id="container">
+      <div id="wrapper-tours"><span id="nb-tours-affichage">0</span>/5 tours</div>
       <div id="app">
         <img class="marker" src="img/marker.png" />
         <div id="wheelSVG" style="width: 400px; height:400px">
@@ -83,12 +84,21 @@
         <span id="modale-text"></span>
 
         <div id="rules">
-          <p>Vous naviguez tranquillement dans votre sous-marin lorsqu'un requin prend vos trousses. Votre objectif : aller plus vite que lui ! Pour se faire, il vous faudra obtenir un bon score sur la roue afin d'avancer. Vous avez cinq tirages pour faire la différence et gagner la partie ! Mais avant de jouer, usez de votre ruse et choisissez vos options de jeu !</p>
+          <p>Vous naviguez tranquillement dans votre sous-marin lorsque vous vous apercevez qu'un requin est à vos trousses. Votre objectif : aller plus vite que lui ! Pour se faire, il vous faudra obtenir un bon score sur la roue afin d'avancer. Vous avez cinq tirages pour faire la différence et gagner la partie ! Mais avant de jouer, usez de votre ruse et choisissez vos options de jeu !</p>
 
+          <form>
+            <h3> Réglez la vitesse du requin </h3>
+            <input type="radio" id="sharkChoice1" data-label="1" name="shark-choices" value="50" checked>
+            <label for="sharkChoice1">Super rapide</label>
+  
+            <input type="radio" id="sharkChoice2" data-label="2" name="shark-choices" value="75">
+            <label for="sharkChoice2">Super (méga) rapide</label>
+          </form>
+          
           <div id="wheelGenerator">
             <div id="wheelContainer">
               <div>
-                <h3> Choisissez votre roue </h3>
+                <h3> Choisissez votre combinaison de roue </h3>
                 <input type="radio" id="wheelChoice1"
                 name="wheel-choices" value="20" checked>
                 <label for="wheelChoice1">Quelques 2 et beaucoup de 0</label>
@@ -109,15 +119,6 @@
             
           </div>
 
-          <form>
-            <h3> Réglez la vitesse du requin </h3>
-            <input type="radio" id="sharkChoice1" name="shark-choices" value="50" checked>
-            <label for="sharkChoice1">Super rapide</label>
-  
-            <input type="radio" id="sharkChoice2" name="shark-choices" value="75">
-            <label for="sharkChoice2">Super (méga) rapide</label>
-          </form>
-
           <div id="colorChoice">
             <h3>Changer la couleur du sous-marin </h3>
             <div id="colorGrid">
@@ -129,8 +130,6 @@
           </div>
           <span id="close-modale">C'est parti !</span>
         </div>
-
-        
 
         <div id="shark-state">
           <h2>État du requin</h2>
@@ -146,6 +145,7 @@
             </tbody>
           </table>
           <p id="sentence-shark"></p>
+          <p id="sentence-binomiale"></p>
           <span id="button-modale">Rejouer</span>
         </div>
       </div>

@@ -51,7 +51,7 @@ body{
   cursor: not-allowed;
   color: #FBFEF9;
   background-color: #006BA6;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 h2{
@@ -67,7 +67,15 @@ label {
 }
 
 .scoreDiv {
-  animation: scoreAnim 2s ease forwards;
+  animation: scoreAnim 3s ease forwards;
+  padding: 6px 4px 2px;
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 8px 10px #00000019;
 }
 
 @keyframes scoreAnim {
@@ -142,6 +150,14 @@ label {
 
 #shark, #submarine{
   width: 50px;
+  border-radius: 50%;
+  box-shadow: 0 8px 10px #00000019;
+  transition: all 300ms ease-in-out;
+  margin-top: 8px;
+  animation-name : move;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 table#parcours {
@@ -149,13 +165,56 @@ table#parcours {
   border-spacing: 5px;
 }
 
+table#parcours tr{
+  transition: all 300ms ease-in-out;
+  animation-name : water;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  background: #5B86E5;
+  background: -webkit-linear-gradient(90deg, #5B86E5, #4ce6f1);
+  background: linear-gradient(90deg, #5B86E5, #4ce6f1);
+  background-size: 300% 300%;
+}
+
+@keyframes move{
+  0% {
+    transform: translateY(0); 
+  }
+  50% {
+    transform: translateY(-4px); 
+  }
+  100% {
+    transform: translateY(0); 
+  }
+}
+
+@keyframes water{
+  0%{
+    background-position: 10% 0%
+  }
+  50%{
+    background-position: 91% 100%
+  }
+  100%{
+    background-position: 10% 0%
+  }
+}
+
+#wrapper-tours{
+  text-align: center;
+  text-align: center;
+  padding: 20px 0 40px;
+  font-weight: bold;
+  color: #006BA6;
+  font-size: 26px;
+}
+
 table#parcours tr td{
-  border-bottom:5px solid #84D2F6;
   border-collapse:collapse;
   padding-bottom: 2px;
   width: 100px;
   height: 100px;
-  background:white;
   text-align: center;
 }
 
@@ -296,5 +355,11 @@ table#score-shark tr th{
 }
 
 #rules form{
-  margin-bottom: 35px;
+  margin-top: 35px;
+  margin-bottom: 12px;
+}
+
+#sentence-binomiale{
+  color:#006BA6;
+  font-weight: normal;
 }
