@@ -132,8 +132,9 @@ function finalScore(){
         label = 'super (méga) rapide'
     }
 
+    tour = (nb_essai > 1) ? ' tours' : ' tour'
     sentenceLoiBinomiale = document.querySelector('p#sentence-binomiale')
-    sentenceLoiBinomiale.innerHTML = 'Le requin avait une probabilité de '+LoiBinomiale(nb_essai,valeur_success,nb_succes)+'%, d\'avancer '+nb_succes+' fois de 2 cases, en '+nb_essai+' tours en étant en mode '+label+' ('+valeur_success+' = valeur succès)'
+    sentenceLoiBinomiale.innerHTML = 'Le requin avait une probabilité de '+(LoiBinomiale(nb_essai,valeur_success,nb_succes)*100).toFixed(2)+'%, d\'avancer '+nb_succes+' fois de 2 cases, en '+nb_essai+tour+' en étant en mode '+label+' ('+valeur_success+' = valeur succès)'
 }
 
 /***** FAIRE AVANCER LE SOUS-MARIN ET LE REQUIN *****/
