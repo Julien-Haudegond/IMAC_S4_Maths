@@ -87,14 +87,27 @@ function createTableLine(turn, go_shark){
     }, 1000);
 }
 
+/***** Permet de donner un entier aléatoire *****/
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
 /***** Loi de Bernoulli *****/
 function loiBernoulli(p){
-    var result = discreteDistribution([p,1-p])
+    result = 0
 
-    if(result < p){
-        booleanBernoulli = true
+    if(p == 0.5){
+        result = getRandomInt(2)
     }else{
+        result = getRandomInt(4)
+    }
+
+    console.log('lala'+result)
+
+    if(result == 0) {
         booleanBernoulli = false
+    }else{
+        booleanBernoulli = true
     }
 
     return booleanBernoulli
