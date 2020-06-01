@@ -94,20 +94,14 @@ function getRandomInt(max) {
 
 /***** Loi de Bernoulli *****/
 function loiBernoulli(p){
-    result = 0
+    result = Math.random()
 
-    if(p == 0.5){
-        result = getRandomInt(2)
-    }else{
-        result = getRandomInt(4)
-    }
+    console.log(result)
 
-    console.log('lala'+result)
-
-    if(result == 0) {
-        booleanBernoulli = false
-    }else{
+    if(result < p) {
         booleanBernoulli = true
+    }else{
+        booleanBernoulli = false
     }
 
     return booleanBernoulli
