@@ -87,6 +87,20 @@ function createTableLine(turn, go_shark){
     }, 1000);
 }
 
+/***** Loi de Bernoulli *****/
+function loiBernoulli(p){
+    var result = discreteDistribution([p,1-p])
+
+    if(result < p){
+        booleanBernoulli = true
+    }else{
+        booleanBernoulli = false
+    }
+
+    return booleanBernoulli
+}
+
+
 /***** Calculer le score final *****/
 function finalScore(){
 
@@ -168,15 +182,15 @@ function sharkMove() {
     const sharkChoice = document.querySelector("input[name=shark-choices]:checked").value
 
     if(sharkChoice == 50){
-        go_shark = discreteUniformDistribution(0, 2)
+        successOrNot = loiBernoulli(0.50)
     }
     else if(sharkChoice == 75){
-        go_shark = discreteUniformDistribution(0, 4)
+        successOrNot = loiBernoulli(0.75)
     }  
 
-    if(go_shark == 0){
+    if(successOrNot == false){
         go_shark = 0
-    }else if(go_shark > 0){
+    }else if(successOrNot == true){
         go_shark = 2
         sharkRiserAudio.play()
     }
